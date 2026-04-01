@@ -1,0 +1,63 @@
+Task 1
+ls -l data/raw/
+total 32
+-rwxrwxrwx 1 egork egork   415 Apr  1 17:05 metadata.json
+-rwxrwxrwx 1 egork egork 28739 Apr  1 17:05 orbital_observations.csv
+
+Task 2
+cat data/raw/metadata.json
+{
+  "dataset_name": "orbital_observations",
+  "num_records": 100,
+  "columns": [
+    "timestamp",
+    "object_id",
+    "temperature",
+    "velocity",
+    "altitude",
+    "signal_strength",
+    "sensor_status",
+    "anomaly_flag"
+  ],
+  "feature_columns": [
+    "temperature",
+    "velocity",
+    "altitude",
+    "signal_strength"
+  ],
+  "target_column": "anomaly_flag",
+  "invalid_records": 3
+}
+
+Task 3
+python3 -m json.tool data/raw/metadata.json
+{
+    "dataset_name": "orbital_observations",
+    "num_records": 100,
+    "columns": [
+        "timestamp",
+        "object_id",
+        "temperature",
+        "velocity",
+        "altitude",
+        "signal_strength",
+        "sensor_status",
+        "anomaly_flag"
+    ],
+    "feature_columns": [
+        "temperature",
+        "velocity",
+        "altitude",
+        "signal_strength"
+    ],
+    "target_column": "anomaly_flag",
+    "invalid_records": 3
+}
+
+Task 5 Reflection
+The most popular change in dataset could be renaming the columns and not updating the metadata.
+The column order doesn't matter, cuz we use in python's dicts which are not ordered.
+In most cases - yes, but in some rare cases we can fix some issues during the validation prossess.
+
+P2
+We must process data because it can

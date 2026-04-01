@@ -1,0 +1,12 @@
+Dataset name: orbital_observations
+Number of loaded records: 500
+Expected number of records: 100
+Column validation result: OK
+Record count validation result: MISMATCH
+Number of valid records: 421
+Number of invalid records: 79
+Generated output files:
+- C:\Users\egork\Documents\warehouse\university\s6\ooais\lab03\data\processed\observations_valid.csv
+- C:\Users\egork\Documents\warehouse\university\s6\ooais\lab03\data\processed\observations_invalid.csv
+- C:\Users\egork\Documents\warehouse\university\s6\ooais\lab03\data\processed\model_input.csv
+- C:\Users\egork\Documents\warehouse\university\s6\ooais\lab03\reports\ingestion_summary.txt
