@@ -1,0 +1,3 @@
+https://github.com/yehorkarabanov/ooais
+
+[{'timestamp': '2026-03-01 12:00:00', 'object_id': 'OBJ-005', 'temperature': '15.77', 'velocity': '7.06', 'altitude': '464', 'signal_strength': '0.98', 'sensor_status': 'OK', 'anomaly_flag': '0'},
