@@ -1,0 +1,24 @@
+OOAIS Model Evaluation
+====================== 
+
+Model: DecisionTreeClassifier
+Training samples: 376
+Test samples: 94
+
+Accuracy: 0.9893617021276596
+Confusion Matrix:
+[[80  0]
+ [ 1 13]]
+
+Decision Tree Rules:
+|--- feature_0 <= 0.39
+|   |--- feature_0 <= 0.37
+|   |   |--- class: 0
+|   |--- feature_0 >  0.37
+|   |   |--- feature_0 <= 0.37
+|   |   |   |--- class: 1
+|   |   |--- feature_0 >  0.37
+|   |   |   |--- class: 0
+|--- feature_0 >  0.39
+|   |--- class: 1
+
