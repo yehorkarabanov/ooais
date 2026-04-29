@@ -1,12 +1,12 @@
 from pathlib import Path
+
+import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix, classification_report
-import matplotlib.pyplot as plt
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"
@@ -258,8 +258,12 @@ def save_experiment_summary(
 
         summary_file.write("Input datasets\n")
         summary_file.write("--------------\n")
-        summary_file.write(f"{Path(features_path).relative_to(PROJECT_ROOT).as_posix()}\n")
-        summary_file.write(f"{Path(labels_path).relative_to(PROJECT_ROOT).as_posix()}\n\n")
+        summary_file.write(
+            f"{Path(features_path).relative_to(PROJECT_ROOT).as_posix()}\n"
+        )
+        summary_file.write(
+            f"{Path(labels_path).relative_to(PROJECT_ROOT).as_posix()}\n\n"
+        )
 
         summary_file.write("Dataset statistics\n")
         summary_file.write("------------------\n")
@@ -320,7 +324,9 @@ def save_experiment_summary(
                 "on the current test set.\n"
             )
 
-    print(f"Saved file: {MODEL_PLAYGROUND_SUMMARY_PATH.relative_to(PROJECT_ROOT).as_posix()}")
+    print(
+        f"Saved file: {MODEL_PLAYGROUND_SUMMARY_PATH.relative_to(PROJECT_ROOT).as_posix()}"
+    )
 
 
 def create_metric_plots(ranked_models):
@@ -360,7 +366,9 @@ def create_metric_plots(ranked_models):
     plt.savefig(MODEL_COMPARISON_PLOT_PATH)
     plt.close(fig)
 
-    print(f"Saved file: {MODEL_COMPARISON_PLOT_PATH.relative_to(PROJECT_ROOT).as_posix()}")
+    print(
+        f"Saved file: {MODEL_COMPARISON_PLOT_PATH.relative_to(PROJECT_ROOT).as_posix()}"
+    )
 
 
 def pipeline(x_train, x_test, y_train, y_test, models):
@@ -372,6 +380,7 @@ def pipeline(x_train, x_test, y_train, y_test, models):
     evaluation_results = compute_detailed_metrics(prediction_results, y_test)
     sorted_results = rank_models(evaluation_results)
     return sorted_results
+
 
 if __name__ == "__main__":
     f_df, l_df = load_data()
@@ -410,7 +419,9 @@ if __name__ == "__main__":
     }
 
     ex1_accuracies = [ex1_accuracy_by_depth[depth] for depth in depths]
-    ex2_accuracies = [ex2_accuracy_by_trees[n_estimators] for n_estimators in n_estimatorss]
+    ex2_accuracies = [
+        ex2_accuracy_by_trees[n_estimators] for n_estimators in n_estimatorss
+    ]
 
     plt.plot(depths, ex1_accuracies, "b-", label="Accuracy")
     plt.xlabel("max_depth")
@@ -449,4 +460,3 @@ if __name__ == "__main__":
         experiment_results,
     )
     create_metric_plots(sorted_results)
-

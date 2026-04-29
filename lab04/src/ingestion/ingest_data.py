@@ -1,5 +1,5 @@
-import json
 import csv
+import json
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -30,7 +30,7 @@ print(f"Column names in dataset  {list(rows[0].keys())}")
 print(f"Column names in metadata {metadata.get('columns', {})}")
 
 print("\nTask 5")
-column_validation_ok = set(rows[0].keys()) == set(metadata.get('columns', {}))
+column_validation_ok = set(rows[0].keys()) == set(metadata.get("columns", {}))
 if not column_validation_ok:
     print("Column validation: MISMATCH")
     print(f"Expected: {set(rows[0].keys())}")
@@ -40,7 +40,7 @@ else:
 
 print("\nTask 6")
 loaded_records = len(rows)
-expected_records = metadata.get('num_records')
+expected_records = metadata.get("num_records")
 record_count_validation_ok = loaded_records == expected_records
 print(f"Number of rows in dataset: {loaded_records}")
 print(f"Number of rows in metadata: {expected_records}")
@@ -79,10 +79,14 @@ with open(INVALID_DATA_PATH, "w", newline="") as invalid_file:
 print("Data saved successfully.")
 
 print("\nTask 9")
-model_input = [{k: row.get(k) for k in metadata.get("feature_columns")} for row in valid]
+model_input = [
+    {k: row.get(k) for k in metadata.get("feature_columns")} for row in valid
+]
 print("Saving model input data to CSV file...")
 with open(MODEL_INPUT_PATH, "w", newline="") as model_input_file:
-    writer = csv.DictWriter(model_input_file, fieldnames=metadata.get("feature_columns"))
+    writer = csv.DictWriter(
+        model_input_file, fieldnames=metadata.get("feature_columns")
+    )
     writer.writeheader()
     writer.writerows(model_input)
 
@@ -100,8 +104,16 @@ with open(INGESTION_SUMMARY_PATH, "w") as summary_file:
     summary_file.write(f"Dataset name: {metadata.get('dataset_name', 'unknown')}\n")
     summary_file.write(f"Number of loaded records: {loaded_records}\n")
     summary_file.write(f"Expected number of records: {expected_records}\n")
-    summary_file.write("Column validation result: OK\n" if column_validation_ok else "Column validation result: MISMATCH\n")
-    summary_file.write("Record count validation result: OK\n" if record_count_validation_ok else "Record count validation result: MISMATCH\n")
+    summary_file.write(
+        "Column validation result: OK\n"
+        if column_validation_ok
+        else "Column validation result: MISMATCH\n"
+    )
+    summary_file.write(
+        "Record count validation result: OK\n"
+        if record_count_validation_ok
+        else "Record count validation result: MISMATCH\n"
+    )
     summary_file.write(f"Number of valid records: {len(valid)}\n")
     summary_file.write(f"Number of invalid records: {len(invalid)}\n")
     summary_file.write("Generated output files:\n")

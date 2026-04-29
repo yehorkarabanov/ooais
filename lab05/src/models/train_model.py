@@ -1,13 +1,10 @@
-import json
 import csv
-from os import mkdir
 from pathlib import Path
-from datetime import datetime
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix
+
 import joblib
-from sklearn.tree import export_text
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, export_text
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"
@@ -41,7 +38,7 @@ print(f"""
 === Machine Learning: Loading Feature Dataset ===
 Input file: {MODEL_FEATURES_PATH.relative_to(PROJECT_ROOT)}
 Records loaded: {len(features)}
-Columns: {features[0].keys() if features else 'N/A'}
+Columns: {features[0].keys() if features else "N/A"}
 """)
 
 x = []
@@ -59,7 +56,9 @@ Number of labels in y: {len(y)}
 Target values detected: [0, 1]
 """)
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(
+    x, y, test_size=0.2, random_state=42
+)
 
 print(f"""
 === Machine Learning: Train/Test Split ===
@@ -97,7 +96,9 @@ Confusion Matrix:
 with open(MODEL_PATH, "wb") as model_file:
     joblib.dump(model, model_file)
 
-tree_rules = export_text(model, feature_names=[f"feature_{i}" for i in range(len(x[0]))])
+tree_rules = export_text(
+    model, feature_names=[f"feature_{i}" for i in range(len(x[0]))]
+)
 print(f"""
 === Machine Learning: Saving and Inspecting Model ===
 Saved model: {MODEL_PATH.relative_to(PROJECT_ROOT)}
@@ -109,43 +110,42 @@ Decision Tree Rules:
 """)
 
 with open(MODEL_EVALUATION_PATH, "w") as eval_file:
-    eval_file.write(f"OOAIS Model Evaluation\n")
-    eval_file.write(f"====================== \n\n")
+    eval_file.write("OOAIS Model Evaluation\n")
+    eval_file.write("====================== \n\n")
     eval_file.write(f"Model: {model.__class__.__name__}\n")
     eval_file.write(f"Training samples: {len(x_train)}\n")
     eval_file.write(f"Test samples: {len(x_test)}\n\n")
     eval_file.write(f"Accuracy: {accuracy}\n")
-    eval_file.write(f"Confusion Matrix:\n")
+    eval_file.write("Confusion Matrix:\n")
     eval_file.write(f"{conf_matrix}\n\n")
-    eval_file.write(f"Decision Tree Rules:\n")
+    eval_file.write("Decision Tree Rules:\n")
     eval_file.write(f"{tree_rules}\n")
 
 with open(MODEL_TRAINING_SUMMARY_PATH, "w") as summary_file:
-    summary_file.write(f"OOAIS Model Training Summary\n")
-    summary_file.write(f"====================== \n\n")
-    summary_file.write(f"Input datasets\n")
-    summary_file.write(f"--------------\n")
+    summary_file.write("OOAIS Model Training Summary\n")
+    summary_file.write("====================== \n\n")
+    summary_file.write("Input datasets\n")
+    summary_file.write("--------------\n")
     summary_file.write(f"{MODEL_FEATURES_PATH.relative_to(PROJECT_ROOT)}\n")
     summary_file.write(f"{MODEL_LABELS_PATH.relative_to(PROJECT_ROOT)}\n\n")
-    summary_file.write(f"Dataset statistics\n")
-    summary_file.write(f"------------------\n")
+    summary_file.write("Dataset statistics\n")
+    summary_file.write("------------------\n")
     summary_file.write(f"Number of samples: {len(x)}\n")
     summary_file.write(f"Number of features: {len(x[0])}\n\n")
-    summary_file.write(f"Model\n")
-    summary_file.write(f"-----\n")
+    summary_file.write("Model\n")
+    summary_file.write("-----\n")
     summary_file.write(f"{model.__class__.__name__}\n\n")
-    summary_file.write(f"Train/Test split\n")
-    summary_file.write(f"----------------\n")
+    summary_file.write("Train/Test split\n")
+    summary_file.write("----------------\n")
     summary_file.write(f"Training samples: {len(x_train)}\n")
     summary_file.write(f"Test samples: {len(x_test)}\n\n")
-    summary_file.write(f"Evaluation summary\n")
-    summary_file.write(f"------------------\n")
+    summary_file.write("Evaluation summary\n")
+    summary_file.write("------------------\n")
     summary_file.write(f"Accuracy: {accuracy:.4f}\n")
-    summary_file.write(f"Confusion Matrix:\n")
+    summary_file.write("Confusion Matrix:\n")
     summary_file.write(f"{conf_matrix}\n")
 
 print(f"""
 === Machine Learning: Saving Training Report ===
 Saved file: {MODEL_TRAINING_SUMMARY_PATH.relative_to(PROJECT_ROOT)}
 """)
-

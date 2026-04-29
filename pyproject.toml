@@ -6,7 +6,28 @@ requires-python = ">=3.13"
 dependencies = [
     "joblib>=1.5.3",
     "matplotlib>=3.10.8",
+    "numpy>=2.4.4",
     "pandas>=3.0.2",
+    "pillow>=12.2.0",
     "ruff>=0.15.11",
     "scikit-learn>=1.8.0",
+    "torch>=2.11.0",
+    "torchvision>=0.26.0",
 ]
+
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "I", # isort
+    "C", # flake8-comprehensions
+    "B", # flake8-bugbear
+]
+ignore = [
+    "E501", # line too long, handled by black
+    "B008", # do not perform function calls in argument defaults
+    "C901", # complexity
+]
+

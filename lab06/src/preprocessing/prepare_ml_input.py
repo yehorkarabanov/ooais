@@ -1,7 +1,7 @@
-import json
 import csv
-from pathlib import Path
+import json
 from datetime import datetime
+from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"
@@ -62,8 +62,9 @@ for key in REQUIRED_NUMERIC_COLUMNS:
 for row in data:
     for key in REQUIRED_NUMERIC_COLUMNS:
         row[key] = (row[key] - min_max_val[REQUIRED_NUMERIC_COLUMNS.index(key)][0]) / (
-                    min_max_val[REQUIRED_NUMERIC_COLUMNS.index(key)][1] -
-                    min_max_val[REQUIRED_NUMERIC_COLUMNS.index(key)][0])
+            min_max_val[REQUIRED_NUMERIC_COLUMNS.index(key)][1]
+            - min_max_val[REQUIRED_NUMERIC_COLUMNS.index(key)][0]
+        )
 print("\n=== ML Input Preparation: Normalization ===")
 print("Normalization completed successfully.")
 print("All selected numerical features are in range [0,1].")
@@ -74,7 +75,9 @@ for row in data:
     row["altitude_signal_ration"] = row["altitude"] / (row["signal_strength"] + 1e-4)
 
 print("=== ML Input Preparation: Derived Features ===")
-print("New features added:\n- temperature_velocity_interaction\n- altitude_signal_ratio")
+print(
+    "New features added:\n- temperature_velocity_interaction\n- altitude_signal_ratio"
+)
 print("Example record (extended):")
 print(json.dumps(data[0], indent=2))
 
@@ -91,15 +94,17 @@ print(json.dumps(data[0], indent=2))
 old_data = data
 data = []
 for row in old_data:
-    data.append({
-        "temperature": row["temperature"],
-        "velocity": row["velocity"],
-        "altitude": row["altitude"],
-        "signal_strength": row["signal_strength"],
-        "temperature_velocity_interaction": row["temperature_velocity_interaction"],
-        "altitude_signal_ration": row["altitude_signal_ration"],
-        "hour_normalized": row["hour_normalized"],
-    })
+    data.append(
+        {
+            "temperature": row["temperature"],
+            "velocity": row["velocity"],
+            "altitude": row["altitude"],
+            "signal_strength": row["signal_strength"],
+            "temperature_velocity_interaction": row["temperature_velocity_interaction"],
+            "altitude_signal_ration": row["altitude_signal_ration"],
+            "hour_normalized": row["hour_normalized"],
+        }
+    )
 
 print("""
 === ML Input Preparation: Feature Selection ===
@@ -139,4 +144,3 @@ Number of features: {len(model_features[0])}
 Example label record:
 {model_labels[0]}
 """)
-
