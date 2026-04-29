@@ -50,6 +50,7 @@ def predict_image(model, image_path):
 def main():
     model = load_model()
     image_path = DATASET_DIR / "test/forest/forest_0000.jpg"
+    image_path = RAW_ROOT / "eurosat/2750/Highway/Highway_1.jpg"
     predict_image(model, image_path)
 
 
