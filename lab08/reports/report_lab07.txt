@@ -1,0 +1,12 @@
+https://github.com/yehorkarabanov/ooais
+
+1) we transform image into rgb and than resize to 64x64x3 than normalize by diveding by 255.0 and flatten to 12288 vector
+2) model see vector 12288 0-1.0
+3) because model is trained only on 3 output classed that's why it can not predict 4th class even if the data is trash
+4) models can't predict result that they haven't seen during training
+5) add unknown class to the training, add anomaly detection, add confidence score, use more complex model architecture
+6) RandomForest
+7) RandomForest
+8) yes
+9) no they have gap in average accuracy in +- 0.1 range
+10) that the longer to train model in not always better
