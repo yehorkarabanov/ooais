@@ -35,3 +35,28 @@ Did the deeper model improve performance?
 - Yes, the deeper model has more parameters and takes longer to train.
 • What is the trade-off between model size and performance?
 - A larger model can potentially achieve better performance, but it also requires more computational resources
+
+
+– What is the difference between a flattened image vector and an image tensor?
+A flattened image vector is a one-dimensional array that contains all the pixel values of an image, while an image tensor is a multi-dimensional array that can represent the spatial structure of the image (e.g., height, width, and color channels).
+
+– What does a PyTorch Dataset do?
+A PyTorch Dataset is a class that provides an interface for accessing and manipulating a dataset. It allows you to define how to load and preprocess the data, and it can be used in conjunction with a DataLoader to efficiently iterate over the dataset during training.
+
+– What does a DataLoader do?
+A DataLoader is a PyTorch class that provides an efficient way to load and iterate over a dataset. It can handle batching, shuffling, and parallel loading of data, which can help improve the performance of training a model.
+
+– Why are CNNs useful for image data?
+CNNs (Convolutional Neural Networks) are useful for image data because they can capture spatial hierarchies and local patterns in the images. They use convolutional layers to automatically learn features from the images, which can help improve the performance of image classification tasks.
+
+– What does the model output before the final class is selected?
+Before the final class is selected, the model outputs a vector of raw scores (logits) for each class. These scores represent the model's confidence in each class, and they are typically passed through a softmax function to convert them into probabilities before selecting the final class with the highest probability.
+
+– Why can the model classify random or unknown images as one of the known classes?
+The model can classify random or unknown images as one of the known classes because it has been trained to recognize patterns in the training data.
+
+– Why can this behavior be dangerous in real orbital AI systems?
+This behavior can be dangerous in real orbital AI systems because it can lead to incorrect classifications and potentially harmful decisions based on those classifications.
+
+– What would need to be improved before using such a model operationally?
+Before using such a model operationally, it would need to be improved in terms of its ability to handle unknown or random inputs.
