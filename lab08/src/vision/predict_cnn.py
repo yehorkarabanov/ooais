@@ -29,7 +29,7 @@ MODEL_PATH = MODELS_DIR / "cnn_model.pt"
 CLASS_NAMES_PATH = MODELS_DIR / "cnn_classes.txt"
 
 REPORTS_PATH = PROJECT_ROOT / "reports"
-CONFUSION_MATRIX_PATH = REPORTS_PATH / "confusion_matrix.png"
+CONFUSION_MATRIX_PATH = REPORTS_PATH / "confusion_matrix_aug_20_epochs_third.png"
 
 
 def load_class_names():

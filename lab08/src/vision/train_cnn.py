@@ -15,7 +15,7 @@ TRAIN_DIR = PROCESSED_ROOT / "train"
 TEST_DIR = PROCESSED_ROOT / "test"
 BATCH_SIZE = 16
 
-EPOCHS = 8
+EPOCHS = 20
 LEARNING_RATE = 0.001
 
 MODELS_DIR = PROJECT_ROOT / "models"
@@ -24,7 +24,14 @@ CLASS_NAMES_PATH = MODELS_DIR / "cnn_classes.txt"
 
 
 def create_dataloaders():
-    transform = transforms.Compose([transforms.ToTensor()])
+    transform = transforms.Compose(
+        [
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(15),
+            transforms.ToTensor(),
+        ]
+    )
+    # transform = transforms.Compose([transforms.ToTensor()])
     train_dataset = EuroSATDataset(root_dir=TRAIN_DIR, transform=transform)
     test_dataset = EuroSATDataset(root_dir=TEST_DIR, transform=transform)
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
@@ -94,6 +101,7 @@ def save_model(model, class_names):
     print("=== Saving Model ===")
     print(f"Saved model: {MODEL_PATH}")
     print(f"Saved classes: {CLASS_NAMES_PATH}")
+
 
 
 def main():

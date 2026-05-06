@@ -1,0 +1,40 @@
+CNN VS CLASSICAL ML
+===================
+
+CLASSICAL ML:
+Model: Random Forest
+Training time: 0.21 seconds
+Accuracy: 0.87
+
+CNN:
+Model: Simple CNN
+Training time: 0.89 seconds (8 Epochs)
+Accuracy: 0.8975
+
+BETTER ACCURACY:
+CNN achieves a higher accuracy (0.8975) compared to the Random Forest (0.87), indicating that it is better at capturing the complex patterns in the data.
+
+
+FASTER TRAINING:
+The Random Forest trains significantly faster (0.21 seconds) than the CNN (0.89 seconds), which may be a consideration for larger datasets or limited computational resources.
+
+FEWER CLASS CONFUSIONS:
+The CNN shows fewer class confusions compared to the Random Forest, suggesting that it is better at distinguishing between different classes in the dataset.
+
+GENERALIZATION:
+The CNN is likely to generalize better to unseen data due to its ability to learn hierarchical features, while the Random Forest may struggle with more complex patterns in the data.
+
+
+
+What does CNN learn that classical ML may miss? Support your answer with examples
+from the dataset used in this laboratory.
+- CNNs learn hierarchical features from the data, which allows them to capture complex patterns and relationships that classical ML models like Random Forest may miss. For example, in image classification tasks, a CNN can learn to identify edges, textures, and shapes in the early layers, and then combine these features to recognize more complex objects in the later layers. In contrast, a Random Forest relies on handcrafted features and may not be able to capture these intricate patterns as effectively.
+
+When might classical ML still be preferable?
+- Classical ML may still be preferable in situations where the dataset is small.
+
+When would CNN be the better engineering choice?
+- CNN would be the better engineering choice when dealing with large and complex datasets, such as images, audio, or text data, where the ability to learn hierarchical features is crucial for achieving high accuracy. Additionally, if the computational resources are available and the training time is not a concern, CNNs can provide superior performance compared to classical ML models.
+
+Would you deploy CNN in a real orbital observation system? Why?
+- Deploying a CNN in a real orbital observation system could be beneficial due to its ability to learn complex patterns and achieve higher accuracy in tasks such as image classification or object detection.

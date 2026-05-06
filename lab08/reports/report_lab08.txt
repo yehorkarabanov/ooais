@@ -4,3 +4,34 @@ https://github.com/yehorkarabanov/ooais
 - yes forest is easier
 - data with noise is cause errors
 
+
+• Did augmentation improve accuracy?
+- No dataset is too small, so it overfitted the model.
+
+• Did training become more stable?
+- No, the model still overfitted the data.
+
+• Which classes improved the most?
+- Rover got worse the most
+
+• Why can augmentation be useful for satellite imagery?
+- It can help to increase the size of the dataset and reduce overfitting.
+
+
+
+ Did accuracy improve?
+ - somewhy yes, it should overfit but it works better xD
+
+• Did loss continue to decrease?
+- Somewhy no, it should decrease but it works better xD
+
+• Is more training always better?
+- No, it can lead to overfitting and worse performance on the test set.
+
+
+Did the deeper model improve performance?
+- yes and in this point I realy don't understand why
+• Did training become slower?
+- Yes, the deeper model has more parameters and takes longer to train.
+• What is the trade-off between model size and performance?
+- A larger model can potentially achieve better performance, but it also requires more computational resources
