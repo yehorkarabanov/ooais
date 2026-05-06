@@ -1,0 +1,6 @@
+https://github.com/yehorkarabanov/ooais
+
+- most confused river
+- yes forest is easier
+- data with noise is cause errors
+

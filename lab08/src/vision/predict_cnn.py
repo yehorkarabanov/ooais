@@ -28,6 +28,9 @@ MODELS_DIR = PROJECT_ROOT / "models"
 MODEL_PATH = MODELS_DIR / "cnn_model.pt"
 CLASS_NAMES_PATH = MODELS_DIR / "cnn_classes.txt"
 
+REPORTS_PATH = PROJECT_ROOT / "reports"
+CONFUSION_MATRIX_PATH = REPORTS_PATH / "confusion_matrix.png"
+
 
 def load_class_names():
     if not CLASS_NAMES_PATH.exists():
@@ -77,6 +80,25 @@ def predict_image(model, class_names, image_path):
     plt.show()
 
 
+def generate_convolution_matrix(model, class_names):
+    test_dataset = EuroSATDataset(root_dir=TEST_DIR, transform=transforms.ToTensor())
+    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
+    all_labels = []
+    all_predictions = []
+    with torch.no_grad():
+        for images, labels in test_loader:
+            outputs = model(images)
+            _, predicted = torch.max(outputs, dim=1)
+            all_labels.extend(labels.cpu().numpy())
+            all_predictions.extend(predicted.cpu().numpy())
+    cm = confusion_matrix(all_labels, all_predictions)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=class_names)
+    disp.plot(cmap=plt.cm.Blues)
+    plt.title("Confusion Matrix")
+    plt.savefig(CONFUSION_MATRIX_PATH, dpi=100, bbox_inches="tight")
+    plt.show()
+
+
 def main():
     class_names = load_class_names()
     model = load_model(class_names)
@@ -84,6 +106,7 @@ def main():
     # image_path = RAW_ROOT / "eurosat/2750/Highway/Highway_1.jpg"
     # image_path = DATA_PATH / "inference_samples/noise.jpg"
     # predict_image(model, class_names, image_path)
+    generate_convolution_matrix(model, class_names)
 
 
 if __name__ == "__main__":
