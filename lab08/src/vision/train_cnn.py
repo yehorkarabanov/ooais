@@ -1,10 +1,11 @@
 from pathlib import Path
+
 import torch
-from torch.utils.data import DataLoader
-from torchvision import transforms
+from cnn_model import SimpleCNN
 from image_dataset import EuroSATDataset
 from torch import nn
-from cnn_model import SimpleCNN
+from torch.utils.data import DataLoader
+from torchvision import transforms
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"
@@ -101,7 +102,6 @@ def save_model(model, class_names):
     print("=== Saving Model ===")
     print(f"Saved model: {MODEL_PATH}")
     print(f"Saved classes: {CLASS_NAMES_PATH}")
-
 
 
 def main():

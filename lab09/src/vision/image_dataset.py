@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
@@ -7,7 +8,6 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"
 RAW_ROOT = DATA_PATH / "raw"
 PROCESSED_ROOT = DATA_PATH / "processed"
-
 
 
 class EuroSATDataset(Dataset):
@@ -54,9 +54,7 @@ class EuroSATDataset(Dataset):
 
 def main():
     transform = transforms.ToTensor()
-    dataset = EuroSATDataset(
-        root_dir=f"{PROCESSED_ROOT}/train", transform=transform
-    )
+    dataset = EuroSATDataset(root_dir=f"{PROCESSED_ROOT}/train", transform=transform)
     print("=== PyTorch Dataset Inspection ===")
     print(f"Classes: {dataset.class_names}")
     print(f"Class mapping: {dataset.class_to_index}")

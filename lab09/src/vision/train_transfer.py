@@ -1,13 +1,13 @@
-from pathlib import Path
 import time
+from pathlib import Path
+
+import matplotlib.pyplot as plt
 import torch
+from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix
+from src.vision.image_dataset import EuroSATDataset
 from torch import nn
 from torch.utils.data import DataLoader
-from torchvision import transforms, models
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
-from src.vision.image_dataset import EuroSATDataset
+from torchvision import models, transforms
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"

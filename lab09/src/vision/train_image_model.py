@@ -62,6 +62,7 @@ def train_model(X_train, y_train):
     print("Model trained.")
     return model
 
+
 def evaluate_model(model, X_test, y_test):
     print("=== Model Evaluation ===")
     y_pred = model.predict(X_test)
@@ -70,11 +71,13 @@ def evaluate_model(model, X_test, y_test):
     print(f"Accuracy: {accuracy:.4f}")
     return accuracy
 
+
 def save_model(model):
     MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(model, MODEL_PATH)
     print("=== Saving Model ===")
     print(f"Saved model: {MODEL_PATH}")
+
 
 def main():
     X_train, X_test, y_train, y_test = load_training_and_test_data()
@@ -83,7 +86,6 @@ def main():
     evaluate_model(model, X_test, y_test)
 
     save_model(model)
-
 
 
 if __name__ == "__main__":

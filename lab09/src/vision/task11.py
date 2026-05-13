@@ -1,15 +1,15 @@
+import time
 from pathlib import Path
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-import joblib
+
 import matplotlib.pyplot as plt
 import numpy as np
 from feature_extractor import extract_features
 from PIL import Image
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
-import time
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"
@@ -85,12 +85,14 @@ def train_and_evaluate_models(X_train, X_test, y_train, y_test):
         accuracy = accuracy_score(y_test, y_pred)
 
         # Store results
-        results.append({
-            "model_name": model_name,
-            "accuracy": accuracy,
-            "training_time": training_time,
-            "model": model
-        })
+        results.append(
+            {
+                "model_name": model_name,
+                "accuracy": accuracy,
+                "training_time": training_time,
+                "model": model,
+            }
+        )
 
         print(f"Model: {model_name}")
         print(f"Accuracy: {accuracy:.4f}")
@@ -106,16 +108,23 @@ def plot_accuracy_vs_training_time(results):
     training_times = [r["training_time"] for r in results]
 
     plt.figure(figsize=(10, 6))
-    plt.scatter(training_times, accuracies, s=200, alpha=0.6, c='blue', edgecolors='black')
+    plt.scatter(
+        training_times, accuracies, s=200, alpha=0.6, c="blue", edgecolors="black"
+    )
 
     # Annotate each point with model name
     for i, model_name in enumerate(model_names):
-        plt.annotate(model_name, (training_times[i], accuracies[i]),
-                    textcoords="offset points", xytext=(0, 10), ha='center')
+        plt.annotate(
+            model_name,
+            (training_times[i], accuracies[i]),
+            textcoords="offset points",
+            xytext=(0, 10),
+            ha="center",
+        )
 
     plt.xlabel("Training Time (seconds)", fontsize=12)
     plt.ylabel("Accuracy", fontsize=12)
-    plt.title("Model Accuracy vs Training Time", fontsize=14, fontweight='bold')
+    plt.title("Model Accuracy vs Training Time", fontsize=14, fontweight="bold")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     plt.show()
@@ -175,7 +184,9 @@ def main():
     test_image_path = DATASET_DIR / "test/forest/forest_0000.jpg"
     if not test_image_path.exists():
         # Use alternative test image if available
-        print(f"Test image not found at {test_image_path}, searching for alternatives...")
+        print(
+            f"Test image not found at {test_image_path}, searching for alternatives..."
+        )
         test_dirs = list((DATASET_DIR / "test").glob("*/"))
         if test_dirs:
             first_class_dir = test_dirs[0]
@@ -189,5 +200,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

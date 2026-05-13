@@ -1,2 +1,29 @@
 https://github.com/yehorkarabanov/ooais
 
+• Which regions of the image were highlighted by Grad-CAM?
+Areas of the image that contained land-cover patterns relevant to the predicted class.
+• Did the highlighted regions make sense for the predicted class?
+Yes
+• Did the model focus on land-cover patterns or irrelevant image regions?
+Land-cover patterns
+• Did Grad-CAM reveal anything that accuracy alone did not show?
+Grad-CAM revealed which specific regions of the image were most influential in the model's decision-making process
+• Would such a visualization be useful during model validation for Earth Observation sys-tems?
+Yes, it can help identify if the model is focusing on relevant features and can provide insights into potential areas for improvement.
+
+• What is transfer learning?
+Transfer learning is a machine learning technique where a model trained on one task is reused as the starting point for a model on a second task. It allows leveraging the knowledge gained from a large dataset to improve performance on a smaller dataset for a related task.
+• What is a pretrained model?
+A pretrained model is a model that has been previously trained on a large dataset and can be used as a starting point for a new task. It has already learned useful features and representations from the original training data, which can be beneficial for the new task.
+• What does it mean to freeze layers?
+Freezing layers means that the weights of those layers are not updated during the training process.
+• What does it mean to replace the classifier head?
+Replacing the classifier head means that the final layers of a pretrained model, which are responsible for making predictions, are removed and replaced with new layers that are specific to the new task. This allows the model to learn to make predictions for the new task while still leveraging the features learned from the original training data.
+• What is fine-tuning?
+Fine-tuning is a transfer learning technique where the pretrained model is not only used as a starting point but also allows for some or all of the layers to be updated during training. This can help the model adapt more closely to the new task and potentially improve performance, especially if the new task is significantly different from the original task.
+• Which approach worked best: SimpleCNN, frozen ResNet18 or fine-tuned ResNet18?
+The fine-tuned ResNet18 approach worked best, as it allowed the model to adapt more closely to the new task while still leveraging the features learned from the original training data.
+• What are the engineering trade-offs between accuracy, training time and model complex-ity?
+There is often a trade-off between accuracy, training time, and model complexity. More complex models may achieve higher accuracy but can require longer training times and more computational resources. Simpler models may train faster and require less resources but may not achieve the same level of accuracy. It is important to find a balance that meets the specific requirements of the task at hand.
+• Would you use transfer learning in an operational Earth Observation system? Why?
+Yes, transfer learning can be very beneficial in operational Earth Observation systems because it allows for leveraging existing models that have been trained on large datasets, which can save time and resources. It can also improve performance on specific tasks by allowing the model to adapt to the unique characteristics of the new data. Additionally, transfer learning can help mitigate issues related to limited labeled data, which is common in Earth Observation applications.

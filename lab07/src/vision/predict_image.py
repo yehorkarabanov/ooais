@@ -2,11 +2,8 @@ from pathlib import Path
 
 import joblib
 import matplotlib.pyplot as plt
-import numpy as np
 from feature_extractor import extract_features
 from PIL import Image
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"

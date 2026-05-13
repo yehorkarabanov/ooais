@@ -1,26 +1,11 @@
 from pathlib import Path
-import time
-import torch
-from torch import nn
-from torch.utils.data import DataLoader
-from torchvision import transforms, models
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
 import matplotlib.pyplot as plt
-from src.vision.image_dataset import EuroSATDataset
-from pathlib import Path
-import torch
-from torch import nn
-from torchvision import transforms, models
-from PIL import Image
-import matplotlib.pyplot as plt
-from pathlib import Path
 import numpy as np
 import torch
-from torch import nn
-from torchvision import transforms, models
 from PIL import Image
-import matplotlib.pyplot as plt
+from torch import nn
+from torchvision import models, transforms
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"
@@ -86,3 +71,103 @@ def load_image(image_path):
         image_tensor = transform(image)
     image_tensor = image_tensor.unsqueeze(0)
     return image_tensor, display_image
+
+
+class GradCAM:
+    def __init__(self, model, target_layer):
+        self.model = model
+        self.target_layer = target_layer
+        self.activations = None
+        self.gradients = None
+        self.forward_hook = target_layer.register_forward_hook(self.save_activations)
+        self.backward_hook = target_layer.register_full_backward_hook(
+            self.save_gradients
+        )
+
+    def save_activations(self, module, input_data, output_data):
+        self.activations = output_data.detach()
+
+    def save_gradients(self, module, grad_input, grad_output):
+        self.gradients = grad_output[0].detach()
+
+    def generate(self, image_tensor, target_class_index):
+        self.model.zero_grad()
+
+        outputs = self.model(image_tensor)
+        score = outputs[0, target_class_index]
+        score.backward()
+        gradients = self.gradients[0]
+        activations = self.activations[0]
+        weights = gradients.mean(dim=(1, 2))
+        cam = torch.zeros(activations.shape[1:], dtype=torch.float32)
+        for channel_index, weight in enumerate(weights):
+            cam += weight * activations[channel_index]
+        cam = torch.relu(cam)
+        cam = cam - cam.min()
+        if cam.max() > 0:
+            cam = cam / cam.max()
+        return cam.numpy()
+
+    def close(self):
+        self.forward_hook.remove()
+        self.backward_hook.remove()
+
+
+def predict(model, image_tensor, class_names):
+    with torch.no_grad():
+        outputs = model(image_tensor)
+        probabilities = torch.softmax(outputs, dim=1)
+        confidence, predicted_index = torch.max(probabilities, dim=1)
+    predicted_class = class_names[predicted_index.item()]
+    return predicted_index.item(), predicted_class, confidence.item()
+
+
+def save_gradcam_visualization(display_image, cam, predicted_class, confidence):
+    image_array = np.array(display_image)
+    cam_image = Image.fromarray(np.uint8(cam * 255))
+    cam_image = cam_image.resize(display_image.size)
+    cam_resized = np.array(cam_image) / 255.0
+    figure, axes = plt.subplots(1, 3, figsize=(12, 4))
+    axes[0].imshow(image_array)
+    axes[0].set_title("Original image")
+    axes[0].axis("off")
+    axes[1].imshow(cam_resized, cmap="jet")
+    axes[1].set_title("Grad-CAM heatmap")
+    axes[1].axis("off")
+    axes[2].imshow(image_array)
+    axes[2].imshow(cam_resized, cmap="jet", alpha=0.45)
+    axes[2].set_title(f"Prediction: {predicted_class}\nConfidence: {confidence:.2f}")
+    axes[2].axis("off")
+    plt.tight_layout()
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(OUTPUT_PATH)
+    plt.close()
+    print(f"Saved Grad-CAM visualization: {OUTPUT_PATH}")
+
+
+def main():
+    class_names = load_class_names()
+    model = load_model(class_names)
+    image_tensor, display_image = load_image(IMAGE_PATH)
+    predicted_index, predicted_class, confidence = predict(
+        model, image_tensor, class_names
+    )
+    print("=== Grad-CAM Explanation ===")
+    print(f"Image: {IMAGE_PATH}")
+    print(f"Predicted class: {predicted_class}")
+    print(f"Confidence: {confidence:.4f}")
+    gradcam = GradCAM(model=model, target_layer=model.layer4)
+    cam = gradcam.generate(
+        image_tensor=image_tensor, target_class_index=predicted_index
+    )
+    gradcam.close()
+    save_gradcam_visualization(
+        display_image=display_image,
+        cam=cam,
+        predicted_class=predicted_class,
+        confidence=confidence,
+    )
+
+
+if __name__ == "__main__":
+    main()

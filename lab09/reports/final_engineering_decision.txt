@@ -1,0 +1,34 @@
+FINAL ENGINEERING DECISION
+==========================
+
+Selected model:
+ResNet18 with fine-tuning (fine-tuned last block + classifier head).
+
+Technical justification (based on Lab 8 + Lab 9):
+- Classification accuracy: this model achieved the best result (1.0000 in the fine-tuning report), while frozen ResNet18 was lower (0.9722 in one run and 0.9556 in another run), and SimpleCNN was 0.8975.
+- Training time: SimpleCNN is much faster (0.89 s), but fine-tuned ResNet18 is still in an acceptable range for this prototype (~36.84 s), and gives a large accuracy gain.
+- Implementation complexity: higher than SimpleCNN and slightly higher than frozen transfer learning, because we must unfreeze selected layers and tune more parameters.
+- Risk of overfitting: fine-tuning can overfit on small datasets, but in our experiments it did not degrade class performance and gave the strongest confusion matrix result.
+- Robustness on unknown inputs: like other closed-set classifiers, it can still force known-class predictions on unknown images. Transfer learning alone does not solve OOD detection.
+- Suitability for small datasets: strong, because it reuses ImageNet features and adapts them to the Earth Observation classes.
+- Expected operational reliability: best among tested options due to highest accuracy and better class separation, plus Grad-CAM evidence that model focus is on meaningful land-cover regions.
+
+Expected advantages:
+- Highest measured classification quality.
+- Better feature reuse from pretrained representation than training from scratch.
+- Good balance between performance and training cost for a prototype system.
+
+Possible risks:
+- Overconfidence on unknown/out-of-distribution inputs.
+- More complex training pipeline than frozen transfer setup.
+- Results may vary between runs (seen in frozen-model metrics), so reproducibility controls are needed.
+
+Deployment considerations:
+- Add confidence thresholding + unknown/anomaly detection before operational use.
+- Keep preprocessing exactly aligned with pretrained model requirements (normalization, image size).
+- Monitor post-deployment drift and periodically re-validate on fresh satellite samples.
+- Prefer fine-tuning updates when new labeled data arrives, but keep frozen model as fallback baseline.
+
+Final choice:
+For this prototype Earth Observation system, I would deploy ResNet18 with fine-tuning, because it gives the best accuracy and the most reliable class-level behavior while keeping training cost manageable.
+

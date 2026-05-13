@@ -1,16 +1,13 @@
 from pathlib import Path
+
+import matplotlib.pyplot as plt
 import torch
+from cnn_model import SimpleCNN
+from image_dataset import EuroSATDataset
+from PIL import Image
+from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 from torch.utils.data import DataLoader
 from torchvision import transforms
-from image_dataset import EuroSATDataset
-from torch import nn
-from cnn_model import SimpleCNN
-from pathlib import Path
-import torch
-from PIL import Image
-from torchvision import transforms
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = PROJECT_ROOT / "data"
