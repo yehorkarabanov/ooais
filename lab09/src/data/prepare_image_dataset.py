@@ -11,7 +11,7 @@ PROCESSED_ROOT = DATA_PATH / "processed"
 
 
 SELECTED_CLASSES = {"Forest": "forest", "River": "river", "Residential": "residential"}
-IMAGES_PER_CLASS = 60
+IMAGES_PER_CLASS = 300
 TRAIN_RATIO = 0.8
 TARGET_SIZE = (64, 64)
 RANDOM_SEED = 42

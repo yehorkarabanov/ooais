@@ -38,6 +38,18 @@ You would use transfer learning when you have a limited amount of labeled data f
 You would fine-tune a pretrained model when you want to achieve the best possible performance on your specific task, and you have enough computational resources and data to support the fine-tuning process. Fine-tuning allows you to adapt the pretrained model's features to better fit your specific dataset, which can lead to improved accuracy compared to using the pretrained model as a frozen feature extractor. This is particularly beneficial when the domain of your data is similar to the domain of the data used for pretraining, as the pretrained features are likely to be more relevant.
 
 
+• Which model benefits more from additional data?
+simple cnn from scratch would likely benefit more from additional data, as it has to learn all the features from the data itself, while the pretrained ResNet18 already has learned features that can be reused.
+• Does the accuracy gap change?
+It decreases
+• Does training time increase significantly?
+yes for all
+
+
+
+
+
+
 
 
 
