@@ -66,7 +66,11 @@ def predict_image(model, class_names, image_path):
         return
 
     transform = transforms.Compose(
-        [transforms.Resize((224, 224)), transforms.ToTensor()]
+        [
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ]
     )
     with Image.open(path) as image:
         image = image.convert("RGB")
@@ -96,6 +100,8 @@ def main():
     class_names = load_class_names()
     model = load_model(class_names)
     image_path = DATASET_DIR / "test/forest/forest_0003.jpg"
+    # image_path = RAW_ROOT / "eurosat/2750/Highway/Highway_1.jpg"
+
     predict_image(model, class_names, image_path)
 
 

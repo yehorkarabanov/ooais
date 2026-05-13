@@ -1,0 +1,45 @@
+MODEL COMPARISON
+================
+1. SimpleCNN from scratch
+Model: Simple CNN
+Training time: 0.89 seconds (8 Epochs)
+Accuracy: 0.8975
+2. ResNet18 frozen feature extractor
+Accuracy: 0.9722
+Training time: 30.43 seconds
+Comments: slower but more accurate than SimpleCNN
+3. ResNet18 fine-tuned last block
+Accuracy: 1.0000
+Training time: 36.84 seconds
+Comments: a bit slower that frozen ResNet18 but achieves perfect accuracy
+BEST ACCURACY:
+ResNet18 fine-tuned last block with 1.0000 accuracy
+FASTEST TRAINING:
+SimpleCNN with 0.89 seconds
+BEST ENGINEERING TRADE-OFF:
+Fine-tuned ResNet18 with 1.0000 accuracy and 36.84 seconds training time, as it provides the best performance while still being reasonably fast compared to the frozen ResNet18.
+
+
+• Which model achieved the best accuracy?
+The ResNet18 fine-tuned last block achieved the best accuracy with 1.0000.
+• Which model trained fastest?
+The SimpleCNN trained the fastest with a training time of 0.89 seconds.
+• Which model required the least implementation effort?
+The ResNet18 frozen feature extractor required the least implementation effort, as it only involves using a pretrained model without needing to modify or fine-tune it.
+• Which model is most suitable for a small dataset?
+The ResNet18 frozen feature extractor is most suitable for a small dataset, as it can leverage the pretrained features without needing a large amount of data to train effectively.
+• Which model is most suitable for a real operational system?
+The ResNet18 fine-tuned last block is most suitable for a real operational system, as it achieves perfect accuracy while still maintaining a reasonable training time, making it a good choice for deployment in a production environment.
+• When would you train a CNN from scratch?
+You would train a CNN from scratch when you have a large amount of labeled data specific to your task, and you want to learn features that are highly tailored to your particular problem. This is often the case when the domain of your data is significantly different from the domains used to pretrain existing models, or when you want to experiment with novel architectures that are not available in pretrained models.
+• When would you use transfer learning?
+You would use transfer learning when you have a limited amount of labeled data for your specific task, but there are pretrained models available that have been trained on large datasets and can provide useful features. Transfer learning allows you to leverage the knowledge learned by these pretrained models, which can lead to improved performance and faster training times compared to training a model from scratch.
+• When would you fine-tune a pretrained model?
+You would fine-tune a pretrained model when you want to achieve the best possible performance on your specific task, and you have enough computational resources and data to support the fine-tuning process. Fine-tuning allows you to adapt the pretrained model's features to better fit your specific dataset, which can lead to improved accuracy compared to using the pretrained model as a frozen feature extractor. This is particularly beneficial when the domain of your data is similar to the domain of the data used for pretraining, as the pretrained features are likely to be more relevant.
+
+
+
+
+
+
+
