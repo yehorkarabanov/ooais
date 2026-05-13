@@ -1,0 +1,35 @@
+TRANSFER LEARNING REPORT
+========================
+
+Model: ResNet18 pretrained on ImageNet
+Training mode: fine-tuned last ResNet block
+Trainable layers: layer4 and final classifier
+
+Classes: ['forest', 'residential', 'river']
+Epochs: 8
+Learning rate: 0.001
+Training time: 36.84 seconds
+Test accuracy: 1.0000
+
+Interpretation:
+The model reused pretrained visual features and trained only a new classifier head for the EuroSAT subset.
+
+• Did fine-tuning improve accuracy?
+    yes
+• Did training become slower?
+    yes
+• Did the confusion matrix change?
+    yes
+• Did any class improve more than others?
+    yes
+• Did any class become worse?
+    no
+• Is fine-tuning worth the additional computational cost?
+    yes
+• Would you use the frozen model or the fine-tuned model in a small-data satellite classifi-
+cation problem?
+    I would use the fine-tuned model, as it has improved accuracy and the computational cost is justified by the performance gain.
+
+
+
+
