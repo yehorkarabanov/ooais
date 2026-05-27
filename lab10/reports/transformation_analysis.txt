@@ -1,0 +1,14 @@
+• Did confidence change?
+Yes
+• Did attention regions move?
+Yes
+• Which transformations had the largest impact?
+Adding noise and blurring
+• Which transformations had minimal impact?
+rotation and flipping
+• Does the model appear robust?
+In general more yes than no.
+
+
+
+
