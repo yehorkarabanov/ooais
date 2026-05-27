@@ -1,0 +1,61 @@
+CUSTOM XAI EXPERIMENT: GRAD-CAM SENSITIVITY TO IMAGE TRANSFORMATIONS
+===================================================================
+
+Goal
+----
+The goal of this experiment was to investigate how stable the model's predictions and Grad-CAM explanations are when the input image is deliberately modified. I wanted to check whether the model keeps focusing on the same semantic regions after simple transformations and whether some transformations cause stronger changes in confidence or even change the predicted class.
+
+Methodology
+-----------
+I used the pretrained EuroSAT transfer-learning model from `lab10/models/resnet18_transfer.pt` and evaluated one test image from each of three classes: `forest`, `river`, and `residential`.
+
+For every base image, I created the following modified versions:
+- horizontal flip
+- 90-degree rotation
+- Gaussian blur
+- brightness increase
+- brightness decrease
+- Gaussian noise
+
+For each original and transformed image, I recorded:
+- predicted class
+- prediction confidence
+- Grad-CAM heatmap
+- similarity of the transformed heatmap to the original heatmap using Pearson correlation
+- overlap of the thresholded heatmaps using the Jaccard index
+
+The experiment was implemented in the existing sensitivity-analysis workflow in `lab10/src/vision/create_gradcam.py`, and the results were saved in `lab10/reports/gradcam_sensitivity/`.
+
+Observations
+------------
+1. The model was generally stable for the original images: all three originals were classified correctly with high confidence.
+   - `forest_0030`: 0.9762 confidence
+   - `river_0030`: 0.9951 confidence
+   - `residential_0030`: 0.9923 confidence
+
+2. Horizontal flip and 90-degree rotation usually kept the predicted class unchanged, but the explanation maps shifted noticeably.
+   - For `forest`, the prediction stayed `forest`, while CAM similarity dropped to 0.7872 for flip and 0.7748 for rotation.
+   - For `river`, the prediction also stayed `river`, but the CAM similarity decreased to 0.7096 for flip and 0.5929 for rotation.
+   - For `residential`, the prediction stayed `residential`, but the CAM correlation for flip became negative (-0.4633), which means the attention pattern changed substantially.
+
+3. Blur and brightness changes had the largest impact on both confidence and attention.
+   - For `forest`, Gaussian blur reduced confidence to 0.8208, and brightness increase reduced CAM similarity almost to zero (0.0368).
+   - For `river`, brightening and blurring reduced confidence to 0.9297 and 0.9144 respectively, while attention similarity also dropped strongly.
+   - For `residential`, blur was especially disruptive: the model changed its prediction from `residential` to `forest` with confidence 0.5021.
+
+4. Darkness and noise could also destabilize the model.
+   - `river` with brightness decrease still predicted `river`, but confidence dropped sharply to 0.5052 and CAM correlation became negative (-0.2466).
+   - `residential` with brightness decrease changed prediction to `forest` with confidence 0.5790 and zero Jaccard overlap.
+   - Adding noise lowered confidence for all classes and often moved the attention away from the original regions.
+
+5. The strongest transformations were blur and strong brightness decrease, while flip and rotation were less damaging to the final class prediction.
+   This matches the idea that geometric changes preserve the scene content better than severe photometric distortions.
+
+Conclusions
+-----------
+The experiment shows that the model is reasonably robust to mild geometric transformations, but its Grad-CAM explanations are not fully invariant even when the prediction stays the same. In other words, correct classification does not guarantee stable attention.
+
+The most harmful modifications were blur and strong brightness reduction, which could lower confidence dramatically and even change the predicted class. This suggests the model depends on visual cues that are sensitive to image quality and intensity distribution.
+
+Overall, Grad-CAM was useful for revealing when the model relied on different regions after transformation. However, explanation stability was weaker than prediction stability, so XAI should be used as a diagnostic tool rather than as proof that the model is reliable.
+
