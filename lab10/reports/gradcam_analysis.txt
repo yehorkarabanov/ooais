@@ -1,0 +1,54 @@
+GRAD-CAM ANALYSIS
+=================
+Prediction:forest
+Confidence:0.9953
+Observed attention: Model focused on parts of the image that have more solid colors
+
+Interpretation: The model's attention on areas with solid colors suggests that it may be relying on color features to make its prediction.
+Conclusions:
+- Did the model focus on meaningful regions?
+Yes, for forests it's area with solid colors which is a common feature of forest images. For rivers, it's more or less the same, but with different colors.
+- Did suspicious predictions appear?
+No, the model's attention seems to be consistent with the expected features of a forest image.
+- Can explainability guarantee correctness?
+No, explainability can provide insights into the model's decision-making process, but it does not guarantee that the model's predictions are correct.
+- Why is XAI important in operational systems?
+XAI is important in operational systems because it allows users to understand and trust the decisions made by AI models. It can help identify biases, errors, or unexpected behavior in the model, which can lead to improved performance and reliability.
+
+• Does the model focus on building patterns?
+No, model focuses on difference in colors, not on building patterns.
+• Does it focus on regular geometric structures?
+No, it seams to focus more on difference in colors
+• Are roads or buildings emphasized?
+Yes, they are usually different in color from the surrounding areas, so they may be emphasized in the model's attention.
+
+
+
+• Which class did the model predict?
+The model predicted the highway as river
+• Was confidence high or low?
+The confidence was high, at 0.9449.
+• Did Grad-CAM focus on meaningful regions?
+Not for me, it's unintuitive that model don't focus on river patterns, but in some random areas. But it was expected that model will predict road as river, cuz it have same view from space, but how it came to this conclusion it's not logical.
+• Did the model force a known class prediction?
+Yes, it predicted river, which is a known class in the dataset.
+
+• Did the model still produce a prediction?
+Yes
+• Was confidence high?
+Not really, it was 0.5581
+• Did Grad-CAM focus on specific regions?
+Yes, it focused on some specific random area of noise image.
+• Did attention appear meaningful?
+No, as for me, it's just random area that have most similarity with training dataset.
+
+Experiment 2: Residential
+Prediction:residential
+Confidence:0.9842
+Experiment 3: Highway
+Prediction:river
+Confidence:0.9449
+Experiment 4: Noise
+Prediction:river
+Confidence:0.5581
+

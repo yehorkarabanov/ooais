@@ -1,0 +1,11 @@
+• Does the model consistently focus on similar regions?
+No
+• Does attention vary significantly?
+Yes
+• Which class produces the most stable attention patterns?
+River
+• Which class appears more difficult?
+Forest
+
+
+

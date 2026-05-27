@@ -1,0 +1,17 @@
+• Do both methods highlight similar regions?
+No, they highlighted different regions.
+• Which explanation appears more localized?
+Occlusion analysis for me is more localized.
+• Which explanation appears easier to interpret?
+It depends, sometimes occlusion is easier sometimes CAM is easier.
+• Did both methods identify the river region?
+Yes, both methods identified the river region.
+• What happens for unknown inputs?
+It anyway will identify for one of trained classes but behavior may be unpredictable or random.
+• Can one explanation method completely replace another?• Do both methods highlight similar regions?
+No, they highlighted different regions.
+
+
+
+
+

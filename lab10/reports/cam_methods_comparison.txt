@@ -1,0 +1,24 @@
+• Do all CAM methods highlight the same image regions?
+No, each CAM method highlights different regions of the image
+• Which method produces the sharpest visualization?
+Layer-CAM
+• Which method produces the smoothest visualization?
+EigenCAM
+• Which method appears easiest to interpret?
+For me it's Layer-CAM, it's the only method that try to highlight river patter and not some random areas
+• Do any methods produce suspicious or unexpected attention?
+Yes, Grad-CAM and EigenCAM produce attention that seems to focus on random areas of the image rather than meaningful features, which is unexpected and suspicious.
+• What does this suggest about relying on only one XAI method?
+Relying on only one XAI method can be misleading, as different methods may highlight different aspects of the model's decision-making process.
+
+
+
+
+
+
+
+
+
+
+
+
