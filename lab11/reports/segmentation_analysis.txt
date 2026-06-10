@@ -1,0 +1,22 @@
+SEGMENTATION ANALYSIS
+=====================
+Pixel accuracy: 0.9950
+Visual observations: 200
+Most accurate class: water
+Most difficult class: urban
+Boundary errors: it rounded squares and made them more circular
+Small object errors: it may miss some small objects
+Engineering conclusions: The model performs well overall, but it may struggle with accurately segmenting urban areas and small objects
+
+• which classes were segmented correctly,
+in general all were correctly, but with corners of the squares being rounded
+• which classes caused the largest errors,
+urban, as they are squares and the model rounded them, making them more circular
+• whether object boundaries were preserved,
+water somewhy stays rectangular more or less
+• whether small structures were detected,
+no, as we don't have them in the mask
+• whether the model confused similar regions,
+it was a bit confused on the border between two classes, but not much
+• what limitations of the current approach can be observed
+the model may struggle with accurately segmenting urban areas and small objects, as it tends to round corners and may miss small structures

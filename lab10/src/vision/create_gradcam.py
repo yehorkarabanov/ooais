@@ -1,11 +1,10 @@
+import csv
 from pathlib import Path
 
-import csv
+import matplotlib.pyplot as plt
 import numpy as np
 import torch
-import matplotlib.pyplot as plt
-
-from PIL import Image, ImageFilter, ImageEnhance
+from PIL import Image, ImageEnhance, ImageFilter
 from pytorch_grad_cam import EigenCAM, GradCAM, HiResCAM, LayerCAM
 from pytorch_grad_cam.utils.image import show_cam_on_image
 from torch import nn
@@ -45,14 +44,18 @@ def load_model(class_names):
 
 def load_image(image_path):
     image = Image.open(image_path).convert("RGB")
-    transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()])
+    transform = transforms.Compose(
+        [transforms.Resize((224, 224)), transforms.ToTensor()]
+    )
     tensor = transform(image)
     return image, tensor.unsqueeze(0)
 
 
 def pil_to_tensor(image_pil):
     """Convert a PIL image to a model input tensor (batch dim added)."""
-    transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()])
+    transform = transforms.Compose(
+        [transforms.Resize((224, 224)), transforms.ToTensor()]
+    )
     return transform(image_pil).unsqueeze(0)
 
 
@@ -166,7 +169,9 @@ def jaccard_index(bin_a, bin_b):
     return float(inter / union)
 
 
-def save_side_by_side(original_img, original_cam, transformed_img, transformed_cam, out_path, titles=None):
+def save_side_by_side(
+    original_img, original_cam, transformed_img, transformed_cam, out_path, titles=None
+):
     """Save a 2x2 figure: original image, original overlay, transformed image, transformed overlay."""
     original_img = original_img.resize((224, 224))
     transformed_img = transformed_img.resize((224, 224))

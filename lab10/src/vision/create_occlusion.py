@@ -4,18 +4,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from create_gradcam import (
-    create_cam_by_method,
     load_class_names,
     load_image,
     load_model,
     predict,
-    visualize_multiple_cams,
 )
-from PIL import Image
-from pytorch_grad_cam import EigenCAM, GradCAM, HiResCAM, LayerCAM
-from pytorch_grad_cam.utils.image import show_cam_on_image
-from torch import nn
-from torchvision import models, transforms
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 
