@@ -8,5 +8,11 @@ Epochs: 10
 Learning rate: 0.001
 Pixel accuracy: 0.9884
 
+Class-wise pixel accuracy:
+- background: 0.9908
+- vegetation: 0.9919
+- water: 0.9683
+- urban: 0.9508
+
 Interpretation:
 The model was trained to assign a land-cover class to every pixel in the image.

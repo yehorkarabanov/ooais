@@ -32,6 +32,12 @@ EPOCHS = 10
 LEARNING_RATE = 0.001
 NUM_CLASSES = 4
 RANDOM_SEED = 42
+CLASS_NAMES = {
+    0: "background",
+    1: "vegetation",
+    2: "water",
+    3: "urban",
+}
 
 
 def create_dataloaders():
@@ -86,6 +92,8 @@ def evaluate_model(model, test_loader, device):
     model.eval()
     correct_pixels = 0
     total_pixels = 0
+    class_correct_pixels = dict.fromkeys(range(NUM_CLASSES), 0)
+    class_total_pixels = dict.fromkeys(range(NUM_CLASSES), 0)
     with torch.no_grad():
         for images, masks in test_loader:
             images = images.to(device)
@@ -94,10 +102,34 @@ def evaluate_model(model, test_loader, device):
             predictions = torch.argmax(outputs, dim=1)
             correct_pixels += (predictions == masks).sum().item()
             total_pixels += masks.numel()
+
+            for class_id in range(NUM_CLASSES):
+                class_mask = masks == class_id
+                class_total_pixels[class_id] += class_mask.sum().item()
+                class_correct_pixels[class_id] += (
+                    (predictions == masks) & class_mask
+                ).sum().item()
+
     accuracy = correct_pixels / total_pixels
+    class_accuracies = {}
+    for class_id in range(NUM_CLASSES):
+        total_for_class = class_total_pixels[class_id]
+        if total_for_class == 0:
+            class_accuracies[class_id] = None
+        else:
+            class_accuracies[class_id] = (
+                class_correct_pixels[class_id] / total_for_class
+            )
     print("=== Segmentation Evaluation ===")
     print(f"Pixel accuracy: {accuracy:.4f}")
-    return accuracy
+    for class_id in range(NUM_CLASSES):
+        class_name = CLASS_NAMES.get(class_id, f"class_{class_id}")
+        class_accuracy = class_accuracies[class_id]
+        if class_accuracy is None:
+            print(f"{class_name.capitalize()} accuracy: N/A (no pixels in test set)")
+        else:
+            print(f"{class_name.capitalize()} accuracy: {class_accuracy:.4f}")
+    return accuracy, class_accuracies
 
 
 def save_model(model):
@@ -106,7 +138,7 @@ def save_model(model):
     print(f"Saved model: {MODEL_PATH}")
 
 
-def save_report(accuracy):
+def save_report(accuracy, class_accuracies):
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(REPORT_PATH, "w") as f:
         f.write("SEMANTIC SEGMENTATION REPORT\n")
@@ -117,6 +149,15 @@ def save_report(accuracy):
         f.write(f"Epochs: {EPOCHS}\n")
         f.write(f"Learning rate: {LEARNING_RATE}\n")
         f.write(f"Pixel accuracy: {accuracy:.4f}\n\n")
+        f.write("Class-wise pixel accuracy:\n")
+        for class_id in range(NUM_CLASSES):
+            class_name = CLASS_NAMES.get(class_id, f"class_{class_id}")
+            class_accuracy = class_accuracies[class_id]
+            if class_accuracy is None:
+                f.write(f"- {class_name}: N/A (no pixels in test set)\n")
+            else:
+                f.write(f"- {class_name}: {class_accuracy:.4f}\n")
+        f.write("\n")
         f.write("Interpretation:\n")
         f.write(
             "The model was trained to assign a land-cover class "
@@ -134,9 +175,9 @@ def main():
     model = SmallUNet(num_classes=NUM_CLASSES)
     model = model.to(device)
     train_model(model, train_loader, device)
-    accuracy = evaluate_model(model, test_loader, device)
+    accuracy, class_accuracies = evaluate_model(model, test_loader, device)
     save_model(model)
-    save_report(accuracy)
+    save_report(accuracy, class_accuracies)
 
 
 if __name__ == "__main__":

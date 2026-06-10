@@ -38,3 +38,16 @@ it's still urbar
 actually it seams to be easier, now accuracy is lower but it more geometry is saved
 • What does this suggest about real Earth Observation data?
 This suggests that while the model performs well on synthetic data, it may face challenges when applied to real Earth Observation data
+
+
+
+• Which class achieved the best accuracy?
+water
+• Which class achieved the worst accuracy?
+urban
+• Is global pixel accuracy misleading?
+yes, as one type can be very accurate while another can be very inaccurate
+• Why are small classes often harder to evaluate
+The data are imbalanced, so small classes may have fewer examples
+
+
