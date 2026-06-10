@@ -20,3 +20,21 @@ no, as we don't have them in the mask
 it was a bit confused on the border between two classes, but not much
 • what limitations of the current approach can be observed
 the model may struggle with accurately segmenting urban areas and small objects, as it tends to round corners and may miss small structures
+
+
+• Are predictions stable across different scenes?
+yes
+• Do errors repeat across images?
+yes, the model tends to round corners of squares, making them more circular, which is a consistent error across images
+• Which structures are segmented most consistently?
+water, as it stays more rectangular and less affected by the rounding issue compared to urban areas
+
+
+• Did pixel accuracy decrease?
+yes it's now 0.9884
+• Which class became harder?
+it's still urbar
+• Did small structures become more difficult?
+actually it seams to be easier, now accuracy is lower but it more geometry is saved
+• What does this suggest about real Earth Observation data?
+This suggests that while the model performs well on synthetic data, it may face challenges when applied to real Earth Observation data

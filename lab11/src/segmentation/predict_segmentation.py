@@ -27,7 +27,7 @@ MASK_PATH = MASK_DIR / "scene_0155.png"
 
 REPORTS_DIR = PROJECT_ROOT / "reports"
 SEGMENTATION_OUTPUT_DIR = REPORTS_DIR / "segmentation_examples"
-OUTPUT_PATH = SEGMENTATION_OUTPUT_DIR / "prediction_4.png"
+OUTPUT_PATH = SEGMENTATION_OUTPUT_DIR / "prediction_hard.png"
 
 MODELS_DIR = PROJECT_ROOT / "models"
 MODEL_PATH = MODELS_DIR / "small_unet.pt"
