@@ -22,12 +22,12 @@ SEGMENTATION_DIR = DATA_PATH / "segmentation"
 IMAGE_DIR = SEGMENTATION_DIR / "images"
 MASK_DIR = SEGMENTATION_DIR / "masks"
 
-IMAGE_PATH = IMAGE_DIR / "scene_0000.png"
-MASK_PATH = MASK_DIR / "scene_0000.png"
+IMAGE_PATH = IMAGE_DIR / "scene_0155.png"
+MASK_PATH = MASK_DIR / "scene_0155.png"
 
 REPORTS_DIR = PROJECT_ROOT / "reports"
 SEGMENTATION_OUTPUT_DIR = REPORTS_DIR / "segmentation_examples"
-OUTPUT_PATH = SEGMENTATION_OUTPUT_DIR / "prediction.png"
+OUTPUT_PATH = SEGMENTATION_OUTPUT_DIR / "prediction_4.png"
 
 MODELS_DIR = PROJECT_ROOT / "models"
 MODEL_PATH = MODELS_DIR / "small_unet.pt"
