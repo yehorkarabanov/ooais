@@ -1,3 +1,6 @@
+https://github.com/yehorkarabanov/ooais
+
+
 SEGMENTATION ANALYSIS
 =====================
 Pixel accuracy: 0.9950
@@ -49,5 +52,17 @@ urban
 yes, as one type can be very accurate while another can be very inaccurate
 • Why are small classes often harder to evaluate
 The data are imbalanced, so small classes may have fewer examples
+
+
+• What does classification output?
+Classification outputs a single class label for the entire image, indicating the dominant land-cover type present in the scene.
+• What does segmentation output?
+Segmentation outputs a class label for every pixel in the image, providing a detailed map of land-cover types across the scene.
+• Which task is more suitable for land-cover mapping?
+Segmentation is more suitable for land-cover mapping as it provides detailed information about the spatial distribution of different land-cover types, allowing for more precise mapping and analysis.
+• Which task is more suitable for quick scene categorization?
+Classification is more suitable for quick scene categorization as it provides a single label for the entire image, allowing for faster processing and decision-making when detailed spatial information is not required.
+• Why is segmentation more computationally demanding?
+Segmentation is more computationally demanding because it requires processing and classifying each pixel in the image, which involves more complex models and larger amounts of data compared to classification, which only needs to assign a single label to the entire image.
 
 
